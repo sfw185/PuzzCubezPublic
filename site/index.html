@@ -15,7 +15,8 @@
 <img class="icon" src="icon.png" alt="The PuzzCubez icon: a pale cube covered in coloured arrows">
 <h1>PuzzCubez</h1>
 <p class="tagline">Untangle the arrow cube.</p>
-<span class="badge">Coming soon to the App Store</span>
+<a class="store" id="store" href="https://apps.apple.com/app/id6826485437" hidden><img src="app-store-badge.svg" alt="Download on the App Store" width="162" height="54"></a>
+<span class="badge" id="soon">Coming soon to the App Store</span>
 </section>
 <div class="shots">
 <img src="1-twisty.jpg" alt="A level: a cube covered in twisting coloured arrows" width="552" height="1200">
@@ -34,5 +35,15 @@
 <span>Made in Australia by Simon Wardan</span>
 </footer>
 </main>
+<script>
+Promise.any(["us", "au"].map((country) =>
+  fetch(`https://itunes.apple.com/lookup?id=6826485437&country=${country}`)
+    .then((response) => response.json())
+    .then((found) => found.resultCount > 0 || Promise.reject())
+)).then(() => {
+  document.getElementById("store").hidden = false;
+  document.getElementById("soon").hidden = true;
+}, () => {});
+</script>
 </body>
 </html>
